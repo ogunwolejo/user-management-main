@@ -29,6 +29,7 @@ const deleteUser = createAsyncThunk('deleteUser', async(id:number, {rejectWithVa
 
 const addUser = createAsyncThunk('addUser', async(data:ICreateUser, {rejectWithValue}) => {
     try {
+        console.log(data)
         const apiUrl = useEnv()
         const response = await axios.post(apiUrl,  {
             method:'POST',

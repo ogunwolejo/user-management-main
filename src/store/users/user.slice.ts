@@ -60,6 +60,30 @@ const userSlice = createSlice({
                 tableLoading:false
             }
         })
+
+
+        // creating a user
+        builder.addCase(Thunks.addUser.pending, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                tableLoading:true
+            }
+        })
+        builder.addCase(Thunks.addUser.fulfilled, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                error:null,
+                tableLoading:false
+            }
+        })
+        builder.addCase(Thunks.addUser.rejected, (state, action:PayloadAction<any>) => {
+            console.log("Erro", action)
+            return {
+                ...state,
+                error: "ERROR ....",
+                tableLoading:false
+            }
+        })
     },
 })
 

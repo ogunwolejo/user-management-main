@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { ICreateUser } from '../../global/interface/users.interface';
+import Loader from '../loader';
+import { Oval } from 'react-loader-spinner';
 
-const UserForm:FC<{lastId:number}> = ({lastId}) => {
+const UserForm:FC<{lastId:number; handler:any; loading?:boolean}> = memo(({lastId, handler, loading}) => {
   const [formData, setFormData] = useState<ICreateUser>({
     id:lastId + 1,
     username: '',
@@ -12,18 +14,23 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
     website:''
   });
 
-  const handleChange = (e:any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleSubmit = async(e:any) => {
+    e.preventDefault();
+    await handler(formData)
+    reset()
   };
 
-  const handleSubmit = (e:any) => {
-    e.preventDefault();
-    // You can handle form submission logic here
-    console.log('Form submitted:', formData);
-  };
+  const reset = () => {
+    setFormData({
+      id:lastId + 1,
+      username: '',
+      email: '',
+      name: '',
+      phoneNumber: '',
+      address: '',
+      website:''
+    })
+  }
 
   return (
     <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded-md shadow-lg border-2 border-blue-800">
@@ -123,18 +130,34 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
           </div>
           <div>
             <div className="w-100 flex justify-end">
-              <button onClick={() => console.log("")} className="py-4 px-4 bg-blue-700 border-0 hover:ring-offset-2 hover:ring-2 focus:ring-2 hover:ring-blue-800 focus:ring-blue-800 gap-2 rounded-md shadow-sm flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke="currentColor" className="stroke-2 w-4 h-4 text-white">
+              {!loading ? <button type="submit" className="py-4 px-4 bg-blue-700 border-0 hover:ring-offset-2 hover:ring-2 focus:ring-2 hover:ring-blue-800 focus:ring-blue-800 gap-2 rounded-md shadow-sm flex justify-between items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke="currentColor" className="stroke-2 w-4 h-4 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                 </svg>
                 <span className="text-white text-sm uppercase text-bold">Add User</span>
               </button>
+              : (
+                <Oval
+                  height={20}
+                  width={20}
+                  color={"blue"}
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel='oval-loading'
+                  secondaryColor={"blue"}
+                  strokeWidth={5}
+                  strokeWidthSecondary={5}
+
+                />
+              )
+              }
             </div>
           </div>
         </div>
       </form>
     </div>
   );
-};
+});
 
 export default UserForm;
