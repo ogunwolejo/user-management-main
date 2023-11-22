@@ -4,5 +4,6 @@ export interface UserSlice {
     users:Array<IUser>;
     loading:boolean;
     error:null|string;
-    tableLoading:boolean
+    tableLoading:boolean;
+    appLoading:boolean;
 }

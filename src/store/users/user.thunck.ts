@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import useEnv from "../../global/hooks/use-env";
 import axios from "axios";
-import { ICreateUser } from "../../global/interface/users.interface";
+import { ICreateUser, IUser } from "../../global/interface/users.interface";
 
 //const apiUrl:string = "https://jsonplaceholder.typicode.com/users"
 
@@ -29,21 +29,37 @@ const deleteUser = createAsyncThunk('deleteUser', async(id:number, {rejectWithVa
 
 const addUser = createAsyncThunk('addUser', async(data:ICreateUser, {rejectWithValue}) => {
     try {
-        console.log(data)
         const apiUrl = useEnv()
         const response = await axios.post(apiUrl,  {
             method:'POST',
             data:JSON.stringify(data)
         })
-        console.log(response)
         return response
     } catch (error:any) {
         return rejectWithValue(error.response.data)
     }
 })
 
+const editUser = createAsyncThunk('editUser', async(data:IUser, {rejectWithValue}) => {
+    try {
+        const apiUrl = useEnv()
+        const response = await axios.put(`${apiUrl}/${data.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        })
+        console.log(response)
+        return response
+    } catch (error:any) {
+        return rejectWithValue(error.response.data)      
+    }
+})
+
 export const Thunks = {
     getUsers,
     deleteUser,
-    addUser
+    addUser,
+    editUser
 }

@@ -7,7 +7,8 @@ const initialState:UserSlice = {
     error:null,
     loading:false,
     users:[],
-    tableLoading:false
+    tableLoading:false,
+    appLoading:false
 }
 
 const userSlice = createSlice({
@@ -82,6 +83,28 @@ const userSlice = createSlice({
                 ...state,
                 error: "ERROR ....",
                 tableLoading:false
+            }
+        })
+
+        // editing a user
+        builder.addCase(Thunks.editUser.pending, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                appLoading:true
+            }
+        })
+        builder.addCase(Thunks.editUser.fulfilled, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                error:null,
+                appLoading:false
+            }
+        })
+        builder.addCase(Thunks.editUser.rejected, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                error: "ERROR ....",
+                appLoading:false
             }
         })
     },
