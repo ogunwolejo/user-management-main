@@ -39,6 +39,26 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## Technologies used in the app
+
+### Dependencies
+React: A JavaScript library for building user interfaces.
+Redux Toolkit: The official, opinionated, batteries-included toolset for efficient Redux development.
+axios: Promise-based HTTP client for the browser and Node.js.
+react-router-dom: DOM bindings for React Router.
+styled-components: CSS-in-JS library for styling React components.
+react-data-table-component: A responsive and customizable data table for React.
+react-loader-spinner: A React component for loading spinners.
+
+### Development Dependencies
+typescript: A superset of JavaScript that adds static typing.
+tailwindcss: A utility-first CSS framework.
+
+### other
+context - for managing the sidebar collapsing
+heroicons - icons  
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
