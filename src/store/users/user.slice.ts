@@ -12,7 +12,21 @@ const initialState:UserSlice = {
 const userSlice = createSlice({
     initialState,
     name:'user',
-    reducers:{},
+    reducers:{
+        deleteUser:(state, action:PayloadAction<any>) => {
+            const {payload} = action
+            return {
+                ...state,
+                users:state.users.filter((item) => item.id !== payload)
+            }
+        },
+        editUser:(state, action:PayloadAction<any>) => {
+            const {payload} = action
+            return {
+                ...state
+            }
+        }
+    },
     extraReducers(builder) {
         builder.addCase(Thunks.getUsers.pending, (state, action:PayloadAction<any>) => {
             return {
@@ -23,7 +37,7 @@ const userSlice = createSlice({
         builder.addCase(Thunks.getUsers.fulfilled, (state, action:PayloadAction<any>) => {
             return {
                 ...state,
-                users:action.payload.data,
+                users:action.payload,
                 error:null,
                 loading:false
             }
@@ -41,3 +55,4 @@ const userSlice = createSlice({
 
 
 export const UserReducer = userSlice.reducer
+export const {deleteUser} = userSlice.actions

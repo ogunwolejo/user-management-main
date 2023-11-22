@@ -28,9 +28,9 @@ const Sidebar = memo(() => {
     <div className={`z-10 h-screen bg-gray-800 dark:bg-gray-900 ${isCollapsed ? 'w-16' : 'w-64' }`}>
       <div className={`absolute top-0 ${isCollapsed ? 'left-12' : 'left-16 md:left-48 lg:left-52'}`}>
         <button className='shadow-lg p-2 rounded flex justify-center bg-gray-800 dark:bg-gray-900' onClick={toggleCollapsed}> 
-            {isCollapsed ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-4 h-4 text-white">
+            {isCollapsed ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke="currentColor" className="stroke-2 w-4 h-4 text-white">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-            </svg> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-4 h-4 text-white">
+            </svg> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-2 w-4 h-4 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                 </svg>
             }
