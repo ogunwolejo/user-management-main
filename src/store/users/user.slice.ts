@@ -6,27 +6,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 const initialState:UserSlice = {
     error:null,
     loading:false,
-    users:[]
+    users:[],
+    tableLoading:false
 }
 
 const userSlice = createSlice({
     initialState,
     name:'user',
-    reducers:{
-        deleteUser:(state, action:PayloadAction<any>) => {
-            const {payload} = action
-            return {
-                ...state,
-                users:state.users.filter((item) => item.id !== payload)
-            }
-        },
-        editUser:(state, action:PayloadAction<any>) => {
-            const {payload} = action
-            return {
-                ...state
-            }
-        }
-    },
+    reducers:{}, 
     extraReducers(builder) {
         builder.addCase(Thunks.getUsers.pending, (state, action:PayloadAction<any>) => {
             return {
@@ -50,9 +37,31 @@ const userSlice = createSlice({
                 loading:false
             }
         })
+
+        // deleting 
+        builder.addCase(Thunks.deleteUser.pending, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                tableLoading:true
+            }
+        })
+        builder.addCase(Thunks.deleteUser.fulfilled, (state, action:PayloadAction<any>) => {
+            return {
+                ...state,
+                error:null,
+                tableLoading:false
+            }
+        })
+        builder.addCase(Thunks.deleteUser.rejected, (state, action:PayloadAction<any>) => {
+            console.log("Erro", action)
+            return {
+                ...state,
+                error: "ERROR ....",
+                tableLoading:false
+            }
+        })
     },
 })
 
 
 export const UserReducer = userSlice.reducer
-export const {deleteUser} = userSlice.actions

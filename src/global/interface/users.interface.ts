@@ -25,3 +25,13 @@ interface address {
         lng:string;
     }
 }
+
+export interface ICreateUser {
+    id:number;
+    name:string;
+    website:string;
+    phoneNumber:string;
+    address:string;
+    email:string;
+    username:string;
+}

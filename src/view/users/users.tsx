@@ -7,15 +7,15 @@ import tableStyles from "../../global/tableStyles";
 import IconBox from "../../common/iconBox";
 import { useDispatch } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { deleteUser } from "../../store/users/user.slice";
 import { useNavigate } from "react-router-dom";
+import { Thunks } from "../../store/users/user.thunck";
 
 const Users:FC = memo(() => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch<ThunkDispatch<any,any,any>>()
-    const {users} = useSelector((store:any) => ({
+    const {users, tableLoading} = useSelector((store:any) => ({
         users: store.users.users,
-        //loading:store.users.loading
+        tableLoading:store.users.tableLoading
     }))
 
 	// the filters for searching and filtering users
@@ -23,8 +23,8 @@ const Users:FC = memo(() => {
 	const [filterText, setFilterTexts] = useState<string>("")
 	
 	// deleting a user from the table
-	const deleteHandler = (id:number) => {
-		dispatch(deleteUser(id))		
+	const deleteHandler = async(id:number) => {
+		await dispatch(Thunks.deleteUser(id))		
 	}
 
 	// viewing user 
@@ -105,7 +105,7 @@ const Users:FC = memo(() => {
 			}
 			
 		]
-    }, [users])
+    }, [tableLoading])
 
 	// the search filter
 	const subHeaderComponentMemo = useMemo(() => {
@@ -159,7 +159,7 @@ const Users:FC = memo(() => {
 				data={filteredItems}
 				customStyles={tableStyles.customStyles}
 				pagination={filteredItems?.length > 9}
-				//progressPending={loading}
+				progressPending={tableLoading}
 				progressComponent={<Loader/>}
 				subHeader
 				subHeaderComponent={subHeaderComponentMemo}

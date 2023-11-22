@@ -1,12 +1,12 @@
-// src/components/UserForm.js
-
 import React, { FC, useState } from 'react';
+import { ICreateUser } from '../../global/interface/users.interface';
 
 const UserForm:FC<{lastId:number}> = ({lastId}) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ICreateUser>({
+    id:lastId + 1,
     username: '',
     email: '',
-    fullname: '',
+    name: '',
     phoneNumber: '',
     address: '',
     website:''
@@ -30,15 +30,15 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
       <h2 className="text-2xl font-semibold mb-4"></h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="fullname" className="block text-sm text-gray-600">
+          <label htmlFor="name" className="block text-sm text-gray-600">
             Fullname
           </label>
           <input
             type="text"
-            id="fullname"
-            name="fullname"
-            value={formData.fullname}
-            onChange={handleChange}
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={(e) => setFormData((c:any) => ({...c, name:e.target.value}))}
             className="w-full mt-1 py-3 outline-blue-800 p-2 border rounded-md"
             required
           />
@@ -52,7 +52,7 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
             id="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => setFormData((c:any) => ({...c, email:e.target.value}))}
             className="w-full mt-1 py-3 p-2 border outline-blue-800 rounded-md"
             required
           />
@@ -66,7 +66,7 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
             id="username"
             name="username"
             value={formData.username}
-            onChange={handleChange}
+            onChange={(e) => setFormData((c:any) => ({...c, username:e.target.value}))}
             className="w-full mt-1 py-3 p-2 border rounded-md outline-blue-800"
             required
           />
@@ -81,7 +81,7 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
               id="phoneNumber"
               name="phoneNumber"
               value={formData.phoneNumber}
-              onChange={handleChange}
+              onChange={(e) => setFormData((c:any) => ({...c, phoneNumber:e.target.value}))}
               className="w-full mt-1 p-2 py-3 border rounded-md outline-blue-800"
               required
             />
@@ -95,7 +95,7 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
                 id="website"
                 name="phoneNumbwebsiteer"
                 value={formData.website}
-                onChange={handleChange}
+                onChange={(e) => setFormData((c:any) => ({...c, website:e.target.value}))}
                 className="w-full mt-1 p-2 py-3 border rounded-md outline-blue-800"
                 required
               />
@@ -109,7 +109,7 @@ const UserForm:FC<{lastId:number}> = ({lastId}) => {
             id="address"
             name="address"
             value={formData.address}
-            onChange={handleChange}
+            onChange={(e) => setFormData((c:any) => ({...c, address:e.target.value}))}
             className="w-full mt-1 p-2 border rounded-md outline-blue-800"
             required
           ></textarea>
